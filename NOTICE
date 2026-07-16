@@ -1,0 +1,15 @@
+This project includes design systems, skills, templates, and prompt templates
+derived from Open Design (https://github.com/nexu-io/open-design),
+licensed under the Apache License, Version 2.0.
+
+Copyright of the original materials remains with the Open Design contributors.
+See LICENSE-open-design for the full license text.
+
+Directories containing Open Design material:
+  design-systems/
+  skills/
+  templates/
+  prompt-templates/
+
+Modifications and original additions in this repository are
+Copyright (c) 2026 Glenn Carter.
