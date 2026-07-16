@@ -51,6 +51,12 @@ export default function Studio() {
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
+    const onError = (e: ErrorEvent) => setError(`Page error: ${e.message}`);
+    window.addEventListener("error", onError);
+    return () => window.removeEventListener("error", onError);
+  }, []);
+
+  useEffect(() => {
     fetch("/api/systems")
       .then((r) => r.json())
       .then((list: SystemMeta[]) => {
@@ -70,7 +76,15 @@ export default function Studio() {
   }
 
   const generate = useCallback(async () => {
-    if (!systemId || !brief.trim() || busy) return;
+    if (busy) return;
+    if (!systemId) {
+      setError("Pick a design system first.");
+      return;
+    }
+    if (!brief.trim()) {
+      setError("Write a brief first — describe what you want in the box above.");
+      return;
+    }
     setBusy(true);
     setError("");
     setHtml("");
@@ -197,7 +211,7 @@ export default function Studio() {
           {busy ? (
             <button onClick={() => abortRef.current?.abort()}>Stop</button>
           ) : (
-            <button className="primary" onClick={generate} disabled={!systemId || !brief.trim()}>
+            <button className="primary" onClick={generate}>
               Generate
             </button>
           )}
@@ -248,10 +262,17 @@ export default function Studio() {
             ) : (
               <pre>{html}</pre>
             )
+          ) : busy ? (
+            <div className="empty">
+              <div className="spinner" />
+              <h2>Designing…</h2>
+              <p>{status || "Claude is working on your artifact. This takes 20–60 seconds."}</p>
+            </div>
           ) : (
             <div className="empty">
               <h2>No artifact yet</h2>
               <p>Pick a design system, choose an artifact type, write a brief, hit Generate.</p>
+              {error && <p style={{ color: "var(--danger)" }}>{error}</p>}
             </div>
           )}
         </div>
