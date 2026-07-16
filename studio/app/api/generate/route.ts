@@ -5,16 +5,47 @@ import { ARTIFACT_TYPES, buildSystemPrompt } from "@/lib/artifactTypes";
 
 export const maxDuration = 600;
 
+interface Turn {
+  role: "user" | "assistant";
+  content: string;
+}
+
 export async function POST(req: NextRequest) {
-  let body: { systemId?: string; artifactTypeId?: string; brief?: string };
+  let body: {
+    systemId?: string;
+    artifactTypeId?: string;
+    brief?: string;
+    messages?: Turn[];
+  };
   try {
     body = await req.json();
   } catch {
     return new Response("invalid JSON body", { status: 400 });
   }
   const { systemId, artifactTypeId, brief } = body;
-  if (!systemId || !artifactTypeId || !brief?.trim()) {
-    return new Response("systemId, artifactTypeId and brief are required", { status: 400 });
+
+  // Either a full conversation (`messages`) or a single first `brief`.
+  let messages: Turn[];
+  if (Array.isArray(body.messages) && body.messages.length > 0) {
+    const valid = body.messages.every(
+      (m) =>
+        m &&
+        (m.role === "user" || m.role === "assistant") &&
+        typeof m.content === "string" &&
+        m.content.length > 0
+    );
+    if (!valid || body.messages[0].role !== "user") {
+      return new Response("malformed messages", { status: 400 });
+    }
+    messages = body.messages;
+  } else if (brief?.trim()) {
+    messages = [{ role: "user", content: `Brief:\n${brief.trim()}` }];
+  } else {
+    return new Response("brief or messages required", { status: 400 });
+  }
+
+  if (!systemId || !artifactTypeId) {
+    return new Response("systemId and artifactTypeId are required", { status: 400 });
   }
   const artifact = ARTIFACT_TYPES.find((a) => a.id === artifactTypeId);
   if (!artifact) return new Response("unknown artifact type", { status: 400 });
@@ -38,7 +69,7 @@ export async function POST(req: NextRequest) {
           max_tokens: 64000,
           thinking: { type: "adaptive" },
           system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
-          messages: [{ role: "user", content: `Brief:\n${brief.trim()}` }],
+          messages,
         });
         for await (const event of messageStream) {
           if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
@@ -53,9 +84,6 @@ export async function POST(req: NextRequest) {
         );
         controller.close();
       }
-    },
-    cancel() {
-      // client disconnected; the SDK stream is garbage-collected with the handler
     },
   });
 
