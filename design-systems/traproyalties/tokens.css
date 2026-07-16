@@ -1,0 +1,52 @@
+/* design-systems/traproyalties/tokens.css
+ * Structured token bindings for TrapRoyaltiesPro (traproyaltiespro.com).
+ * Deep-space navy terminal, Orbitron display, neon purple / money amber signals.
+ */
+
+:root {
+  --bg: #0a0f1e;
+  --surface: #0f1623;
+  --surface-2: #0f172a;
+  --raise: #1e293b;
+  --fg: #e2e8f0;
+  --heading: #ffffff;
+  --muted: rgba(255, 255, 255, 0.55);
+  --faint: rgba(255, 255, 255, 0.3);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-accent: rgba(168, 85, 247, 0.35);
+  --accent: #a855f7;
+  --accent-on: #ffffff;
+  --accent-soft: #a78bfa;
+  --accent-deep: #9333ea;
+  --gradient-cta: linear-gradient(135deg, #9333ea, #ec4899);
+  --glow-accent: 0 0 24px rgba(168, 85, 247, 0.4);
+  --money: #f59e0b;
+  --money-bright: #fbbf24;
+  --pink: #ec4899;
+  --cyan: #06b6d4;
+  --success: #2b6f4b;
+  --success-tint: #f0f9f4;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --danger-tint: #fee2e2;
+  --ambient-glow: rgba(88, 28, 135, 0.35);
+  --font-display: Orbitron, sans-serif;
+  --font-body: Inter, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Menlo, monospace;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 40px;
+  --text-4xl: 56px;
+  --leading-body: 1.65;
+  --leading-tight: 1.1;
+  --tracking-label: 0.2em;
+  --radius-control: 8px;
+  --radius-card: 14px;
+  --radius-panel: 20px;
+  --container: 1200px;
+}

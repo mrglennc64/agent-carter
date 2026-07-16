@@ -1,0 +1,49 @@
+/* design-systems/heyroya/tokens.css
+ * Structured token bindings for HeyRoya (heyroya.se).
+ * Deep forest green on sage paper, mint success moments, one gold accent.
+ */
+
+:root {
+  --bg: #f6f7f4;
+  --surface: #e9eee8;
+  --surface-alt: #eef4f0;
+  --surface-highlight: #dff5ec;
+  --fg: #14211f;
+  --fg-2: #2a3a35;
+  --muted: #63706d;
+  --border: #d8dfda;
+  --border-highlight: #b8dfcf;
+  --accent: #075a3b;
+  --accent-on: #ffffff;
+  --accent-hover: #0c7a56;
+  --accent-active: #054a30;
+  --mint: #47b38a;
+  --gold: #b48a47;
+  --info: #315a82;
+  --success: #0c7a56;
+  --warn: #b48a47;
+  --danger: #b53333;
+  --dark-surface: #14211f;
+  --dark-fg: rgba(255, 255, 255, 0.88);
+  --dark-muted: rgba(216, 223, 218, 0.82);
+  --font-display: -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+  --font-body: -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Menlo, monospace;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 32px;
+  --text-3xl: 44px;
+  --text-4xl: 56px;
+  --leading-body: 1.6;
+  --leading-tight: 1.1;
+  --tracking-display: -0.02em;
+  --radius-control: 10px;
+  --radius-card: 16px;
+  --radius-hero: 24px;
+  --shadow-lift: 0 2px 8px rgba(26, 45, 40, 0.12);
+  --shadow-soft: 0 1px 3px rgba(30, 48, 43, 0.08);
+  --container: 1120px;
+}
